@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="button_disable">#E2E2E2</color>
+    <color name="button_pressed">#F7F7F7</color>
+    <color name="button_normal">#FFFFFF</color>
+    <color name="divider">#AFAFAF</color>
+    <color name="red">#FF0000</color>
+</resources>
