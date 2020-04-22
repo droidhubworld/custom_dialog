@@ -18,12 +18,12 @@
         android:orientation="vertical">
 
         <FrameLayout
-            android:id="@+id/layout.titleHeader"
+            android:id="@+id/layout_titleHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:id="@+id/layout.title"
+                android:id="@+id/layout_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -31,12 +31,12 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/icon.titleIcon"
+                    android:id="@+id/icon_titleIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/tv.title"
+                    android:id="@+id/tv_title"
                     style="@style/TextAppearance.AppCompat.Large"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
         </FrameLayout>
 
         <TextView
-            android:id="@+id/tv.message"
+            android:id="@+id/tv_message"
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -61,7 +61,7 @@
 
 
         <View
-            android:id="@+id/view.horizontalDivider"
+            android:id="@+id/view_horizontalDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/divider" />
@@ -72,7 +72,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn.positive"
+                android:id="@+id/btn_positive"
                 style="@style/dialogButtonDefault"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -82,13 +82,13 @@
                 android:textColor="@android:color/black" />
 
             <View
-                android:id="@+id/view.verticalDivider"
+                android:id="@+id/view_verticalDivider"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@color/divider" />
 
             <Button
-                android:id="@+id/btn.negative"
+                android:id="@+id/btn_negative"
                 style="@style/dialogButtonDefault"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
