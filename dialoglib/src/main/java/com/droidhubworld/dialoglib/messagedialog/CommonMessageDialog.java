@@ -40,13 +40,14 @@ import com.droidhubworld.dialoglib.listener.CommonDialogListener;
 public class CommonMessageDialog extends DialogFragment implements View.OnClickListener {
     private FrameLayout titleHeader;
     private LinearLayout layoutTitle;
+    private boolean hideTitle;
     private ImageView titleIcon;
     private TextView tvTitle, tvMessage;
     private Button btnPositive, btnNegative;
     private View horizontalDivider, verticalDivider;
     private CardView rootLayout;
     private Context mContext;
-    private int mBackgroundColor=-1;
+    private int mBackgroundColor = -1;
     private boolean mCancelable = true;
     private CommonDialogListener callBack = null;
     private int mStyle = -1;
@@ -89,6 +90,7 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
                                 CommonDialogListener callBack,
                                 int mStyle,
                                 String mTitle,
+                                boolean hideTitle,
                                 String mMessage,
                                 int mTitleColor,
                                 int mMessageColor,
@@ -124,6 +126,7 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
         this.callBack = callBack;
         this.mStyle = mStyle;
         this.mTitle = mTitle;
+        this.hideTitle = hideTitle;
         this.mMessage = mMessage;
         this.mTitleColor = mTitleColor;
         this.mMessageColor = mMessageColor;
@@ -158,12 +161,13 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
 
     public static class Builder {
         private Context mContext;
-        private int mBackgroundColor=-1;
+        private int mBackgroundColor = -1;
         private boolean mCancelable = true;
         private CommonDialogListener callBack = null;
         private int mStyle = -1;
         private String mTitle;
         private String mMessage;
+        private boolean hideTitle;
         private int mTitleColor = -1;
         private int mTitleGravity = -1;
         private float mTitleSize = -1;
@@ -201,10 +205,12 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
             this.mButtonTypeface = buttonTypeface;
             return this;
         }
+
         public Builder buttonTextSize(float buttonTextSize) {
             this.mButtonTextSize = buttonTextSize;
             return this;
         }
+
         public Builder titleTypeface(int titleTypeface) {
             this.mTitleTypeface = titleTypeface;
             return this;
@@ -327,6 +333,11 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
             return this;
         }
 
+        public CommonMessageDialog.Builder hideTitle(boolean hideTitle) {
+            this.hideTitle = hideTitle;
+            return this;
+        }
+
         public Builder titleGravity(int titleGravity) {
             this.mTitleGravity = titleGravity;
             return this;
@@ -369,11 +380,11 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
 
         public CommonMessageDialog build() {
             return new CommonMessageDialog(this.mContext, this.mBackgroundColor, this.mCancelable, this.callBack, mStyle,
-                    this.mTitle, this.mMessage, this.mTitleColor, this.mMessageColor, this.mTitleGravity, this.mTitleSize, this.mMessageGravity, this.mMessageSize,
+                    this.mTitle, this.hideTitle, this.mMessage, this.mTitleColor, this.mMessageColor, this.mTitleGravity, this.mTitleSize, this.mMessageGravity, this.mMessageSize,
                     this.mShowButtonDivider, this.mButtonDividerWeight, this.mButtonDividerColor, this.mDialogWindowWidth, this.mDialogWindowHeight,
                     this.mPositiveButtonDrawable, this.mNegativeButtonDrawable, this.mPositiveButtonText, this.mNegativeButtonText, this.mShowNegativeButton,
                     this.mTitleBackgroundDrawable, this.mTitleIcon, this.mIconMaxHeight, this.mIconMaxWidth, this.mIconMinHeight, this.mIconMinWidth, this.mIconThinColor, this.mCornerRadius,
-                    this.mMessageTypeface, this.mTitleTypeface,this.mButtonTypeface,this.mButtonTextSize);
+                    this.mMessageTypeface, this.mTitleTypeface, this.mButtonTypeface, this.mButtonTextSize);
         }
     }
 
@@ -502,6 +513,8 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
             tvTitle.setTextColor(mContext.getResources().getColor(mTitleColor));
         }
 
+        tvTitle.setVisibility((!hideTitle) ? View.VISIBLE : View.GONE);
+
         if (mTitleGravity > -1) {
             FrameLayout.LayoutParams paramsTitleHeader = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT);
             paramsTitleHeader.gravity = mTitleGravity;
@@ -529,11 +542,11 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
         if (mTitleTypeface > -1) {
             tvTitle.setTypeface(tvTitle.getTypeface(), mTitleTypeface);
         }
-        if (mButtonTypeface>-1){
+        if (mButtonTypeface > -1) {
             btnPositive.setTypeface(btnPositive.getTypeface(), mButtonTypeface);
             btnNegative.setTypeface(btnNegative.getTypeface(), mButtonTypeface);
         }
-        if (mButtonTextSize>0){
+        if (mButtonTextSize > 0) {
             btnPositive.setTextSize(mButtonTextSize);
             btnNegative.setTextSize(mButtonTextSize);
         }
