@@ -408,7 +408,6 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
         setCancelable(mCancelable);
     }
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
