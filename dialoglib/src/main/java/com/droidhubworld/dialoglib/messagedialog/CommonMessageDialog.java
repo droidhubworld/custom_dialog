@@ -73,6 +73,7 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
     private boolean mShowNegativeButton = true;
     private Drawable mTitleBackgroundDrawable = null;
     private Drawable mTitleIcon = null;
+    private boolean mHideIcon;
     private int mIconHeight = -1;
     private int mIconWidth = -1;
     private int mIconTitleMaxHeight = -1;
@@ -113,6 +114,7 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
                                 boolean mShowNegativeButton,
                                 Drawable mTitleBackgroundDrawable,
                                 Drawable mTitleIcon,
+                                boolean mHideIcon,
                                 int mIconHeight,
                                 int mIconWidth,
                                 int mIconTitleMaxHeight,
@@ -151,6 +153,7 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
         this.mShowNegativeButton = mShowNegativeButton;
         this.mTitleBackgroundDrawable = mTitleBackgroundDrawable;
         this.mTitleIcon = mTitleIcon;
+        this.mHideIcon = mHideIcon;
         this.mIconHeight = mIconHeight;
         this.mIconWidth = mIconWidth;
         this.mIconTitleMaxHeight = mIconTitleMaxHeight;
@@ -193,6 +196,7 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
         private boolean mShowNegativeButton = true;
         private Drawable mTitleBackgroundDrawable = null;
         private Drawable mTitleIcon = null;
+        private boolean mHideIcon = false;
         private int mIconHeight = -1;
         private int mIconWidth = -1;
         private int mIconTitleMaxHeight = -1;
@@ -250,6 +254,10 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
             return this;
         }
 
+        public Builder hideIcon(boolean mHideIcon) {
+            this.mHideIcon = mHideIcon;
+            return this;
+        }
         public Builder iconHeight(int iconHeight) {
             this.mIconHeight = mIconHeight;
             return this;
@@ -400,7 +408,7 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
                     this.mTitle, this.hideTitle, this.mMessage, this.mTitleColor, this.mMessageColor, this.mTitleGravity, this.mTitleSize, this.mMessageGravity, this.mMessageSize,
                     this.mShowButtonDivider, this.mButtonDividerWeight, this.mButtonDividerColor, this.mDialogWindowWidth, this.mDialogWindowHeight,
                     this.mPositiveButtonDrawable, this.mNegativeButtonDrawable, this.mPositiveButtonText, this.mNegativeButtonText, this.mShowNegativeButton,
-                    this.mTitleBackgroundDrawable, this.mTitleIcon, this.mIconHeight, this.mIconWidth, this.mIconTitleMaxHeight, this.mIconTitleMaxWidth, this.mIconTitleMinHeight, this.mIconTitleMinWidth, this.mIconTitleThinColor, this.mCornerRadius,
+                    this.mTitleBackgroundDrawable, this.mTitleIcon, this.mHideIcon, this.mIconHeight, this.mIconWidth, this.mIconTitleMaxHeight, this.mIconTitleMaxWidth, this.mIconTitleMinHeight, this.mIconTitleMinWidth, this.mIconTitleThinColor, this.mCornerRadius,
                     this.mMessageTypeface, this.mTitleTypeface, this.mButtonTypeface, this.mButtonTextSize);
         }
     }
@@ -473,6 +481,11 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
         }
         if (mIconHeight > -1) {
             mIcon.setMaxHeight(mIconHeight);
+        }
+        if (mHideIcon) {
+            mIcon.setVisibility(View.VISIBLE);
+        }else{
+            mIcon.setVisibility(View.GONE);
         }
         if (mIconTitleMaxHeight > -1) {
             titleIcon.setMaxHeight(mIconTitleMaxHeight);
