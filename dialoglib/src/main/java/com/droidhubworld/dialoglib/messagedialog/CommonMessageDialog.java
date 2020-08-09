@@ -41,6 +41,7 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
     private FrameLayout titleHeader;
     private LinearLayout layoutTitle;
     private boolean hideTitle;
+    private ImageView mIcon;
     private ImageView titleIcon;
     private TextView tvTitle, tvMessage;
     private Button btnPositive, btnNegative;
@@ -72,11 +73,13 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
     private boolean mShowNegativeButton = true;
     private Drawable mTitleBackgroundDrawable = null;
     private Drawable mTitleIcon = null;
-    private int mIconMaxHeight = -1;
-    private int mIconMaxWidth = -1;
-    private int mIconMinHeight = -1;
-    private int mIconMinWidth = -1;
-    private int mIconThinColor = -1;
+    private int mIconHeight = -1;
+    private int mIconWidth = -1;
+    private int mIconTitleMaxHeight = -1;
+    private int mIconTitleMaxWidth = -1;
+    private int mIconTitleMinHeight = -1;
+    private int mIconTitleMinWidth = -1;
+    private int mIconTitleThinColor = -1;
     private float mCornerRadius = 0;
     private int mMessageTypeface = 0;
     private int mTitleTypeface = 0;
@@ -110,11 +113,13 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
                                 boolean mShowNegativeButton,
                                 Drawable mTitleBackgroundDrawable,
                                 Drawable mTitleIcon,
-                                int mIconMaxHeight,
-                                int mIconMaxWidth,
-                                int mIconMinHeight,
-                                int mIconMinWidth,
-                                int mIconThinColor,
+                                int mIconHeight,
+                                int mIconWidth,
+                                int mIconTitleMaxHeight,
+                                int mIconTitleMaxWidth,
+                                int mIconTitleMinHeight,
+                                int mIconTitleMinWidth,
+                                int mIconTitleThinColor,
                                 float mCornerRadius,
                                 int mMessageTypeface,
                                 int mTitleTypeface,
@@ -146,11 +151,13 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
         this.mShowNegativeButton = mShowNegativeButton;
         this.mTitleBackgroundDrawable = mTitleBackgroundDrawable;
         this.mTitleIcon = mTitleIcon;
-        this.mIconMaxHeight = mIconMaxHeight;
-        this.mIconMaxWidth = mIconMaxWidth;
-        this.mIconMinHeight = mIconMinHeight;
-        this.mIconMinWidth = mIconMinWidth;
-        this.mIconThinColor = mIconThinColor;
+        this.mIconHeight = mIconHeight;
+        this.mIconWidth = mIconWidth;
+        this.mIconTitleMaxHeight = mIconTitleMaxHeight;
+        this.mIconTitleMaxWidth = mIconTitleMaxWidth;
+        this.mIconTitleMinHeight = mIconTitleMinHeight;
+        this.mIconTitleMinWidth = mIconTitleMinWidth;
+        this.mIconTitleThinColor = mIconTitleThinColor;
         this.mCornerRadius = mCornerRadius;
         this.mMessageTypeface = mMessageTypeface;
         this.mTitleTypeface = mTitleTypeface;
@@ -186,11 +193,13 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
         private boolean mShowNegativeButton = true;
         private Drawable mTitleBackgroundDrawable = null;
         private Drawable mTitleIcon = null;
-        private int mIconMaxHeight = -1;
-        private int mIconMaxWidth = -1;
-        private int mIconMinHeight = -1;
-        private int mIconMinWidth = -1;
-        private int mIconThinColor = -1;
+        private int mIconHeight = -1;
+        private int mIconWidth = -1;
+        private int mIconTitleMaxHeight = -1;
+        private int mIconTitleMaxWidth = -1;
+        private int mIconTitleMinHeight = -1;
+        private int mIconTitleMinWidth = -1;
+        private int mIconTitleThinColor = -1;
         private float mCornerRadius = 0;
         private int mMessageTypeface = 0;
         private int mTitleTypeface = 0;
@@ -226,28 +235,36 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
             return this;
         }
 
-        public Builder iconThinColor(int iconThinColor) {
-            this.mIconThinColor = iconThinColor;
+        public Builder iconTitleThinColor(int iconThinColor) {
+            this.mIconTitleThinColor = iconThinColor;
             return this;
         }
 
-        public Builder iconMinWidth(int iconMinWidth) {
-            this.mIconMinWidth = iconMinWidth;
+        public Builder iconTitleMinWidth(int iconMinWidth) {
+            this.mIconTitleMinWidth = iconMinWidth;
             return this;
         }
 
-        public Builder iconMinHeight(int iconMinHeight) {
-            this.mIconMinHeight = iconMinHeight;
+        public Builder iconTitleMinHeight(int iconMinHeight) {
+            this.mIconTitleMinHeight = iconMinHeight;
             return this;
         }
 
-        public Builder iconMaxHeight(int iconMaxHeight) {
-            this.mIconMaxHeight = iconMaxHeight;
+        public Builder iconHeight(int iconHeight) {
+            this.mIconHeight = mIconHeight;
+            return this;
+        }
+        public Builder iconWidth(int iconWidth) {
+            this.mIconWidth = iconWidth;
+            return this;
+        }
+        public Builder iconTitleMaxHeight(int iconMaxHeight) {
+            this.mIconTitleMaxHeight = iconMaxHeight;
             return this;
         }
 
-        public Builder iconMaxWidth(int iconMaxWidth) {
-            this.mIconMaxWidth = iconMaxWidth;
+        public Builder iconTitleMaxWidth(int iconMaxWidth) {
+            this.mIconTitleMaxWidth = iconMaxWidth;
             return this;
         }
 
@@ -383,7 +400,7 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
                     this.mTitle, this.hideTitle, this.mMessage, this.mTitleColor, this.mMessageColor, this.mTitleGravity, this.mTitleSize, this.mMessageGravity, this.mMessageSize,
                     this.mShowButtonDivider, this.mButtonDividerWeight, this.mButtonDividerColor, this.mDialogWindowWidth, this.mDialogWindowHeight,
                     this.mPositiveButtonDrawable, this.mNegativeButtonDrawable, this.mPositiveButtonText, this.mNegativeButtonText, this.mShowNegativeButton,
-                    this.mTitleBackgroundDrawable, this.mTitleIcon, this.mIconMaxHeight, this.mIconMaxWidth, this.mIconMinHeight, this.mIconMinWidth, this.mIconThinColor, this.mCornerRadius,
+                    this.mTitleBackgroundDrawable, this.mTitleIcon, this.mIconHeight, this.mIconWidth, this.mIconTitleMaxHeight, this.mIconTitleMaxWidth, this.mIconTitleMinHeight, this.mIconTitleMinWidth, this.mIconTitleThinColor, this.mCornerRadius,
                     this.mMessageTypeface, this.mTitleTypeface, this.mButtonTypeface, this.mButtonTextSize);
         }
     }
@@ -424,6 +441,7 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
         super.onViewCreated(view, savedInstanceState);
         titleHeader = view.findViewById(R.id.layout_titleHeader);
         layoutTitle = view.findViewById(R.id.layout_title);
+        mIcon = view.findViewById(R.id.img_icon);
         titleIcon = view.findViewById(R.id.icon_titleIcon);
         rootLayout = view.findViewById(R.id.layout_rootLayout);
         tvMessage = view.findViewById(R.id.tv_message);
@@ -450,20 +468,26 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
         if (mTitleIcon != null) {
             titleIcon.setImageDrawable(mTitleIcon);
         }
-        if (mIconThinColor > -1) {
-            titleIcon.setColorFilter(ContextCompat.getColor(mContext, mIconThinColor), android.graphics.PorterDuff.Mode.SRC_IN);
+        if (mIconTitleThinColor > -1) {
+            titleIcon.setColorFilter(ContextCompat.getColor(mContext, mIconTitleThinColor), android.graphics.PorterDuff.Mode.SRC_IN);
         }
-        if (mIconMaxHeight > -1) {
-            titleIcon.setMaxHeight(mIconMaxHeight);
+        if (mIconHeight > -1) {
+            mIcon.setMaxHeight(mIconHeight);
         }
-        if (mIconMinHeight > -1) {
-            titleIcon.setMinimumHeight(mIconMinHeight);
+        if (mIconTitleMaxHeight > -1) {
+            titleIcon.setMaxHeight(mIconTitleMaxHeight);
         }
-        if (mIconMinWidth > -1) {
-            titleIcon.setMinimumWidth(mIconMinWidth);
+        if (mIconTitleMinHeight > -1) {
+            titleIcon.setMinimumHeight(mIconTitleMinHeight);
         }
-        if (mIconMaxWidth > -1) {
-            titleIcon.setMaxWidth(mIconMaxWidth);
+        if (mIconTitleMinWidth > -1) {
+            titleIcon.setMinimumWidth(mIconTitleMinWidth);
+        }
+        if (mIconWidth > -1) {
+            mIcon.setMaxWidth(mIconHeight);
+        }
+        if (mIconTitleMaxWidth > -1) {
+            titleIcon.setMaxWidth(mIconTitleMaxWidth);
         }
         if (mBackgroundColor > -1) {
             rootLayout.setCardBackgroundColor(mContext.getResources().getColor(mBackgroundColor));
