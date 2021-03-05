@@ -1,43 +1,34 @@
 package com.droidhubworld.dialoglib.messagedialog;
 
-import android.app.Activity;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.Spanned;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
 
 import com.droidhubworld.dialoglib.R;
 import com.droidhubworld.dialoglib.listener.CommonDialogListener;
 
 
-public class CommonMessageDialog extends DialogFragment implements View.OnClickListener {
+public class CommonMessageDialog extends BaseDialog implements View.OnClickListener {
     private FrameLayout titleHeader;
     private LinearLayout layoutTitle;
     private boolean hideTitle;
@@ -70,6 +61,8 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
 
     private String mPositiveButtonText = null;
     private String mNegativeButtonText = null;
+    private int mPositiveButtonTextColor = -1;
+    private int mNegativeButtonTextColor = -1;
     private boolean mShowNegativeButton = true;
     private Drawable mTitleBackgroundDrawable = null;
     private Drawable mTitleIcon = null;
@@ -111,6 +104,8 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
                                 Drawable mNegativeButtonDrawable,
                                 String mPositiveButtonText,
                                 String mNegativeButtonText,
+                                int mPositiveButtonTextColor,
+                                int mNegativeButtonTextColor,
                                 boolean mShowNegativeButton,
                                 Drawable mTitleBackgroundDrawable,
                                 Drawable mTitleIcon,
@@ -150,6 +145,8 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
         this.mNegativeButtonDrawable = mNegativeButtonDrawable;
         this.mPositiveButtonText = mPositiveButtonText;
         this.mNegativeButtonText = mNegativeButtonText;
+        this.mPositiveButtonTextColor = mPositiveButtonTextColor;
+        this.mNegativeButtonTextColor = mNegativeButtonTextColor;
         this.mShowNegativeButton = mShowNegativeButton;
         this.mTitleBackgroundDrawable = mTitleBackgroundDrawable;
         this.mTitleIcon = mTitleIcon;
@@ -193,6 +190,8 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
         private Drawable mNegativeButtonDrawable = null;
         private String mPositiveButtonText = null;
         private String mNegativeButtonText = null;
+        private int mPositiveButtonTextColor = -1;
+        private int mNegativeButtonTextColor = -1;
         private boolean mShowNegativeButton = true;
         private Drawable mTitleBackgroundDrawable = null;
         private Drawable mTitleIcon = null;
@@ -258,14 +257,17 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
             this.mHideIcon = mHideIcon;
             return this;
         }
+
         public Builder iconHeight(int iconHeight) {
             this.mIconHeight = mIconHeight;
             return this;
         }
+
         public Builder iconWidth(int iconWidth) {
             this.mIconWidth = iconWidth;
             return this;
         }
+
         public Builder iconTitleMaxHeight(int iconMaxHeight) {
             this.mIconTitleMaxHeight = iconMaxHeight;
             return this;
@@ -293,6 +295,16 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
 
         public Builder negativeButtonText(String negativeButtonText) {
             this.mNegativeButtonText = negativeButtonText;
+            return this;
+        }
+
+        public Builder positiveButtonTextColor(int positiveButtonTextColor) {
+            this.mPositiveButtonTextColor = positiveButtonTextColor;
+            return this;
+        }
+
+        public Builder negativeButtonTextColor(int negativeButtonTextColor) {
+            this.mNegativeButtonTextColor = negativeButtonTextColor;
             return this;
         }
 
@@ -407,7 +419,7 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
             return new CommonMessageDialog(this.mContext, this.mBackgroundColor, this.mCancelable, this.callBack, mStyle,
                     this.mTitle, this.hideTitle, this.mMessage, this.mTitleColor, this.mMessageColor, this.mTitleGravity, this.mTitleSize, this.mMessageGravity, this.mMessageSize,
                     this.mShowButtonDivider, this.mButtonDividerWeight, this.mButtonDividerColor, this.mDialogWindowWidth, this.mDialogWindowHeight,
-                    this.mPositiveButtonDrawable, this.mNegativeButtonDrawable, this.mPositiveButtonText, this.mNegativeButtonText, this.mShowNegativeButton,
+                    this.mPositiveButtonDrawable, this.mNegativeButtonDrawable, this.mPositiveButtonText, this.mNegativeButtonText, this.mPositiveButtonTextColor, this.mNegativeButtonTextColor, this.mShowNegativeButton,
                     this.mTitleBackgroundDrawable, this.mTitleIcon, this.mHideIcon, this.mIconHeight, this.mIconWidth, this.mIconTitleMaxHeight, this.mIconTitleMaxWidth, this.mIconTitleMinHeight, this.mIconTitleMinWidth, this.mIconTitleThinColor, this.mCornerRadius,
                     this.mMessageTypeface, this.mTitleTypeface, this.mButtonTypeface, this.mButtonTextSize);
         }
@@ -437,9 +449,6 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.common_message_dialog, container, false);
-        // request a window without the title
-        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         return view;
     }
@@ -484,7 +493,7 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
         }
         if (mHideIcon) {
             mIcon.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             mIcon.setVisibility(View.GONE);
         }
         if (mIconTitleMaxHeight > -1) {
@@ -518,8 +527,14 @@ public class CommonMessageDialog extends DialogFragment implements View.OnClickL
             btnNegative.setText(mNegativeButtonText);
         }
 
+        if (mNegativeButtonTextColor > -1) {
+            btnNegative.setTextColor(mContext.getResources().getColor(mNegativeButtonTextColor));
+        }
         if (mPositiveButtonText != null) {
             btnPositive.setText(mPositiveButtonText);
+        }
+        if (mPositiveButtonTextColor > -1) {
+            btnPositive.setTextColor(mContext.getResources().getColor(mPositiveButtonTextColor));
         }
 
         if (!mShowButtonDivider) {
