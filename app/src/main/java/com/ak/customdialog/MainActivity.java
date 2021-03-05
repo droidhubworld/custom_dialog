@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .negativeButtonDrawable(getResources().getDrawable(R.drawable.default_button_selector))
                         .positiveButtonTextColor(R.color.red)
                         .negativeButtonTextColor(R.color.red)
-                        .cancelable(false)
+                        .cancelable(true)
                         .dialogWindowWidth(0.9f)
                         //.dialogWindowHeight(0.3f)
                         .style(R.style.dialogStyle)

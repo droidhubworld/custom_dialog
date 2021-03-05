@@ -439,10 +439,18 @@ public class CommonMessageDialog extends BaseDialog implements View.OnClickListe
     }
 
     @Override
+    public int getLayoutId() {
+        return mStyle;
+    }
+
+    @Override
+    public boolean isCancelable() {
+        return mCancelable;
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setCancelable(mCancelable);
     }
 
     @Nullable
@@ -477,8 +485,8 @@ public class CommonMessageDialog extends BaseDialog implements View.OnClickListe
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (mStyle > -1)
-            getDialog().getWindow().getAttributes().windowAnimations = mStyle;
+        /*if (mStyle > -1)
+            getDialog().getWindow().getAttributes().windowAnimations = mStyle;*/
         if (mCornerRadius > -1) {
             rootLayout.setRadius(mCornerRadius);
         }

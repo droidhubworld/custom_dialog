@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StyleRes;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -25,6 +26,12 @@ public abstract class BaseDialog extends DialogFragment {
 
     }
 
+    public abstract
+    @StyleRes
+    int getLayoutId();
+    public abstract
+    boolean isCancelable();
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -35,7 +42,12 @@ public abstract class BaseDialog extends DialogFragment {
                 ViewGroup.LayoutParams.WRAP_CONTENT));
 
         // creating the fullscreen dialog
-        final Dialog dialog = new Dialog(getContext(), R.style.dialogStyle);
+        final Dialog dialog;
+        if (getLayoutId() == -1) {
+            dialog = new Dialog(getContext(), R.style.dialogStyle);
+        } else {
+            dialog = new Dialog(getContext(), getLayoutId());
+        }
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(root);
         if (dialog.getWindow() != null) {
@@ -44,7 +56,7 @@ public abstract class BaseDialog extends DialogFragment {
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
         }
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCanceledOnTouchOutside(isCancelable());
 
         return dialog;
     }
