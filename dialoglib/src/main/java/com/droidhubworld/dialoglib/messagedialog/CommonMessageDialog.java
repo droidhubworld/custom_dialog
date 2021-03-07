@@ -655,17 +655,16 @@ public class CommonMessageDialog extends BaseDialog implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        dismiss();
         if (v.getId() == R.id.btn_positive) {
             if (callBack != null) {
                 callBack.onDialogButtonClick(true);
             }
-            dismiss();
         }
         if (v.getId() == R.id.btn_negative) {
             if (callBack != null) {
                 callBack.onDialogButtonClick(false);
             }
-            dismiss();
         }
     }
 
