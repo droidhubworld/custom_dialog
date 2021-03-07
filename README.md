@@ -17,7 +17,7 @@ allprojects {
  ###### Step 2. Add the dependency
  ```
 dependencies {
-        implementation 'com.github.droidhubworld:custom_dialog:0.1.6'
+        implementation 'com.github.droidhubworld:custom_dialog:0.1.7'
 }
 ```
 ###### Default Usage
