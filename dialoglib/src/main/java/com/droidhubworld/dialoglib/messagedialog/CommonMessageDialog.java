@@ -2,15 +2,12 @@ package com.droidhubworld.dialoglib.messagedialog;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -24,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
+import com.droidhubworld.dialoglib.DefaultConstants;
 import com.droidhubworld.dialoglib.R;
 import com.droidhubworld.dialoglib.listener.CommonDialogListener;
 
@@ -35,8 +33,8 @@ public class CommonMessageDialog extends BaseDialog implements View.OnClickListe
     private ImageView mIcon;
     private ImageView titleIcon;
     private TextView tvTitle, tvMessage;
-    private Button btnPositive, btnNegative;
-    private View horizontalDivider, verticalDivider;
+    private Button btnPositive, btnNegative, button3rd;
+    private View horizontalDivider, verticalDivider, button3rDivider;
     private CardView rootLayout;
     private Context mContext;
     private int mBackgroundColor = -1;
@@ -59,6 +57,15 @@ public class CommonMessageDialog extends BaseDialog implements View.OnClickListe
     private Drawable mPositiveButtonDrawable = null;
     private Drawable mNegativeButtonDrawable = null;
 
+    private Object positiveButtonTag = DefaultConstants.POSITIVE_BUTTON_TAG;
+    private Object negativeButtonTag = DefaultConstants.NEGATIVE_BUTTON_TAG;
+    private Object m3rdButtonTag = DefaultConstants.BUTTON_3RD_TAG;
+
+    private boolean mShow3rdButton = false;
+    private Drawable m3rdButtonDrawable = null;
+    private String m3rdButtonText = null;
+    private int m3rdButtonTextColor = -1;
+
     private String mPositiveButtonText = null;
     private String mNegativeButtonText = null;
     private int mPositiveButtonTextColor = -1;
@@ -79,7 +86,6 @@ public class CommonMessageDialog extends BaseDialog implements View.OnClickListe
     private int mTitleTypeface = 0;
     private int mButtonTypeface = 0;
     private float mButtonTextSize = 0;
-
 
     private CommonMessageDialog(Context mContext,
                                 int mBackgroundColor,
@@ -107,6 +113,13 @@ public class CommonMessageDialog extends BaseDialog implements View.OnClickListe
                                 int mPositiveButtonTextColor,
                                 int mNegativeButtonTextColor,
                                 boolean mShowNegativeButton,
+                                boolean mShow3rdButton,
+                                Drawable m3rdButtonDrawable,
+                                String m3rdButtonText,
+                                int m3rdButtonTextColor,
+                                Object positiveButtonTag,
+                                Object negativeButtonTag,
+                                Object m3rdButtonTag,
                                 Drawable mTitleBackgroundDrawable,
                                 Drawable mTitleIcon,
                                 boolean mHideIcon,
@@ -148,6 +161,13 @@ public class CommonMessageDialog extends BaseDialog implements View.OnClickListe
         this.mPositiveButtonTextColor = mPositiveButtonTextColor;
         this.mNegativeButtonTextColor = mNegativeButtonTextColor;
         this.mShowNegativeButton = mShowNegativeButton;
+        this.mShow3rdButton = mShow3rdButton;
+        this.m3rdButtonDrawable = m3rdButtonDrawable;
+        this.m3rdButtonText = m3rdButtonText;
+        this.m3rdButtonTextColor = m3rdButtonTextColor;
+        this.positiveButtonTag = positiveButtonTag;
+        this.negativeButtonTag = negativeButtonTag;
+        this.m3rdButtonTag = m3rdButtonTag;
         this.mTitleBackgroundDrawable = mTitleBackgroundDrawable;
         this.mTitleIcon = mTitleIcon;
         this.mHideIcon = mHideIcon;
@@ -192,6 +212,15 @@ public class CommonMessageDialog extends BaseDialog implements View.OnClickListe
         private String mNegativeButtonText = null;
         private int mPositiveButtonTextColor = -1;
         private int mNegativeButtonTextColor = -1;
+        private Object positiveButtonTag = DefaultConstants.POSITIVE_BUTTON_TAG;
+        private Object negativeButtonTag = DefaultConstants.NEGATIVE_BUTTON_TAG;
+        private Object m3rdButtonTag = DefaultConstants.BUTTON_3RD_TAG;
+
+        private boolean mShow3rdButton = false;
+        private Drawable m3rdButtonDrawable = null;
+        private String m3rdButtonText = null;
+        private int m3rdButtonTextColor = -1;
+
         private boolean mShowNegativeButton = true;
         private Drawable mTitleBackgroundDrawable = null;
         private Drawable mTitleIcon = null;
@@ -328,6 +357,42 @@ public class CommonMessageDialog extends BaseDialog implements View.OnClickListe
             return this;
         }
 
+        //////////////
+        public Builder positiveButtonTag(Object positiveButtonTag) {
+            this.positiveButtonTag = positiveButtonTag;
+            return this;
+        }
+
+        public Builder negativeButtonTag(Object negativeButtonTag) {
+            this.negativeButtonTag = negativeButtonTag;
+            return this;
+        }
+
+        public Builder m3rdButtonTag(Object m3rdButtonTag) {
+            this.m3rdButtonTag = m3rdButtonTag;
+            return this;
+        }
+
+        public Builder show3rdButton(boolean showButton) {
+            this.mShow3rdButton = showButton;
+            return this;
+        }
+
+        public Builder m3rdButtonDrawable(Drawable m3rdButtonDrawable) {
+            this.m3rdButtonDrawable = m3rdButtonDrawable;
+            return this;
+        }
+
+        public Builder m3rdButtonText(String m3rdButtonText) {
+            this.m3rdButtonText = m3rdButtonText;
+            return this;
+        }
+
+        public Builder m3rdButtonTextColor(int m3rdButtonTextColor) {
+            this.m3rdButtonTextColor = m3rdButtonTextColor;
+            return this;
+        }
+
         public Builder dialogWindowWidth(float dialogWindowWidth) {
             this.mDialogWindowWidth = dialogWindowWidth;
             return this;
@@ -415,11 +480,13 @@ public class CommonMessageDialog extends BaseDialog implements View.OnClickListe
             return this;
         }
 
+
         public CommonMessageDialog build() {
             return new CommonMessageDialog(this.mContext, this.mBackgroundColor, this.mCancelable, this.callBack, mStyle,
                     this.mTitle, this.hideTitle, this.mMessage, this.mTitleColor, this.mMessageColor, this.mTitleGravity, this.mTitleSize, this.mMessageGravity, this.mMessageSize,
                     this.mShowButtonDivider, this.mButtonDividerWeight, this.mButtonDividerColor, this.mDialogWindowWidth, this.mDialogWindowHeight,
                     this.mPositiveButtonDrawable, this.mNegativeButtonDrawable, this.mPositiveButtonText, this.mNegativeButtonText, this.mPositiveButtonTextColor, this.mNegativeButtonTextColor, this.mShowNegativeButton,
+                    this.mShow3rdButton, this.m3rdButtonDrawable, this.m3rdButtonText, this.m3rdButtonTextColor, this.positiveButtonTag, this.negativeButtonTag, this.m3rdButtonTag,
                     this.mTitleBackgroundDrawable, this.mTitleIcon, this.mHideIcon, this.mIconHeight, this.mIconWidth, this.mIconTitleMaxHeight, this.mIconTitleMaxWidth, this.mIconTitleMinHeight, this.mIconTitleMinWidth, this.mIconTitleThinColor, this.mCornerRadius,
                     this.mMessageTypeface, this.mTitleTypeface, this.mButtonTypeface, this.mButtonTextSize);
         }
@@ -473,12 +540,15 @@ public class CommonMessageDialog extends BaseDialog implements View.OnClickListe
         tvTitle = view.findViewById(R.id.tv_title);
         horizontalDivider = view.findViewById(R.id.view_horizontalDivider);
         verticalDivider = view.findViewById(R.id.view_verticalDivider);
+        button3rDivider = view.findViewById(R.id.view_verticalDividerFor3rd);
         tvTitle.setText(mTitle);
         tvMessage.setText(mMessage);
         btnPositive = view.findViewById(R.id.btn_positive);
         btnNegative = view.findViewById(R.id.btn_negative);
+        button3rd = view.findViewById(R.id.btn_3rd);
         btnPositive.setOnClickListener(this);
         btnNegative.setOnClickListener(this);
+        button3rd.setOnClickListener(this);
 
     }
 
@@ -525,6 +595,23 @@ public class CommonMessageDialog extends BaseDialog implements View.OnClickListe
         if (mTitleBackgroundDrawable != null) {
             titleHeader.setBackground(mTitleBackgroundDrawable);
         }
+
+
+        if (!mShow3rdButton) {
+            button3rDivider.setVisibility(View.GONE);
+            button3rd.setVisibility(View.GONE);
+        } else {
+            button3rDivider.setVisibility(View.VISIBLE);
+            button3rd.setVisibility(View.VISIBLE);
+        }
+        if (m3rdButtonText != null) {
+            button3rd.setText(m3rdButtonText);
+        }
+
+        if (m3rdButtonTextColor > -1) {
+            button3rd.setTextColor(mContext.getResources().getColor(m3rdButtonTextColor));
+        }
+
 
         if (!mShowNegativeButton) {
             verticalDivider.setVisibility(View.GONE);
@@ -604,10 +691,12 @@ public class CommonMessageDialog extends BaseDialog implements View.OnClickListe
         if (mButtonTypeface > -1) {
             btnPositive.setTypeface(btnPositive.getTypeface(), mButtonTypeface);
             btnNegative.setTypeface(btnNegative.getTypeface(), mButtonTypeface);
+            button3rd.setTypeface(button3rd.getTypeface(), mButtonTypeface);
         }
         if (mButtonTextSize > 0) {
             btnPositive.setTextSize(mButtonTextSize);
             btnNegative.setTextSize(mButtonTextSize);
+            button3rd.setTextSize(mButtonTextSize);
         }
         if (mPositiveButtonDrawable != null) {
             btnPositive.setBackground(mPositiveButtonDrawable);
@@ -616,6 +705,13 @@ public class CommonMessageDialog extends BaseDialog implements View.OnClickListe
         if (mNegativeButtonDrawable != null) {
             btnNegative.setBackground(mNegativeButtonDrawable);
         }
+        if (m3rdButtonDrawable != null) {
+            button3rd.setBackground(m3rdButtonDrawable);
+        }
+
+        btnPositive.setTag(positiveButtonTag);
+        btnNegative.setTag(negativeButtonTag);
+        button3rd.setTag(m3rdButtonTag);
     }
 
     @Override
@@ -658,12 +754,17 @@ public class CommonMessageDialog extends BaseDialog implements View.OnClickListe
         dismiss();
         if (v.getId() == R.id.btn_positive) {
             if (callBack != null) {
-                callBack.onDialogButtonClick(true);
+                callBack.onDialogButtonClick(true, v.getTag());
             }
         }
         if (v.getId() == R.id.btn_negative) {
             if (callBack != null) {
-                callBack.onDialogButtonClick(false);
+                callBack.onDialogButtonClick(false, v.getTag());
+            }
+        }
+        if (v.getId() == R.id.btn_3rd) {
+            if (callBack != null) {
+                callBack.onDialogButtonClick(false, v.getTag());
             }
         }
     }

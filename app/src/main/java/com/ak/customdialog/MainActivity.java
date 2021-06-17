@@ -1,11 +1,12 @@
 package com.ak.customdialog;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.droidhubworld.dialoglib.listener.CommonDialogListener;
 import com.droidhubworld.dialoglib.messagedialog.CommonMessageDialog;
@@ -55,6 +56,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .negativeButtonDrawable(getResources().getDrawable(R.drawable.default_button_selector))
                         .positiveButtonTextColor(R.color.red)
                         .negativeButtonTextColor(R.color.red)
+                        .show3rdButton(true)
+                        .m3rdButtonText("Cancel")
+                        .m3rdButtonTextColor(R.color.red)
                         .cancelable(true)
                         .dialogWindowWidth(0.9f)
                         //.dialogWindowHeight(0.3f)
@@ -64,8 +68,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .showButtonDivider(true)
                         .callBack(new CommonDialogListener() {
                             @Override
-                            public void onDialogButtonClick(Boolean isPositive) {
-
+                            public void onDialogButtonClick(Boolean isPositive, Object viewTag) {
+                                Log.e("CLICK ON : ", viewTag.toString());
                             }
                         }).build();
                 dialog.show("Dialog");
@@ -76,8 +80,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .message("This Is Default Custom Message")
                         .callBack(new CommonDialogListener() {
                             @Override
-                            public void onDialogButtonClick(Boolean isPositive) {
-
+                            public void onDialogButtonClick(Boolean isPositive, Object viewTag) {
+                                Log.e("CLICK ON : ", viewTag.toString());
                             }
                         }).build();
                 dialog.show("Dialog");
