@@ -8,6 +8,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.droidhubworld.dialoglib.DefaultConstants;
 import com.droidhubworld.dialoglib.listener.CommonDialogListener;
 import com.droidhubworld.dialoglib.messagedialog.CommonMessageDialog;
 
@@ -70,6 +71,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             @Override
                             public void onDialogButtonClick(Boolean isPositive, Object viewTag) {
                                 Log.e("CLICK ON : ", viewTag.toString());
+                                switch (viewTag.toString()) {
+                                    case DefaultConstants.POSITIVE_BUTTON_TAG:
+                                        //TODO write your code here
+                                        Log.e("CLICK ON : ", "1");
+                                        break;
+                                    case DefaultConstants.NEGATIVE_BUTTON_TAG:
+                                        //TODO write your code here
+                                        Log.e("CLICK ON : ", "2");
+                                        break;
+                                    case DefaultConstants.BUTTON_3RD_TAG:
+                                        //TODO write your code here
+                                        Log.e("CLICK ON : ", "3");
+                                        break;
+                                }
                             }
                         }).build();
                 dialog.show("Dialog");
@@ -82,6 +97,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             @Override
                             public void onDialogButtonClick(Boolean isPositive, Object viewTag) {
                                 Log.e("CLICK ON : ", viewTag.toString());
+                                switch (viewTag.toString()) {
+                                    case DefaultConstants.POSITIVE_BUTTON_TAG:
+                                        //TODO write your code here
+                                        Log.e("CLICK ON : ", "1");
+                                        break;
+                                    case DefaultConstants.NEGATIVE_BUTTON_TAG:
+                                        //TODO write your code here
+                                        Log.e("CLICK ON : ", "2");
+                                        break;
+                                    case DefaultConstants.BUTTON_3RD_TAG:
+                                        //TODO write your code here
+                                        Log.e("CLICK ON : ", "3");
+                                        break;
+                                }
                             }
                         }).build();
                 dialog.show("Dialog");
