@@ -17,7 +17,7 @@ allprojects {
  ###### Step 2. Add the dependency
  ```
 dependencies {
-        implementation 'com.github.droidhubworld:custom_dialog:0.1.7'
+        implementation 'com.github.droidhubworld:custom_dialog:2.0.0'
 }
 ```
 ###### Default Usage
@@ -27,9 +27,23 @@ dialog = new CommonMessageDialog.Builder(this)
 	.message("This Is Default Custom Message")
 	.callBack(new CommonDialogListener() {
 		@Override
-		public void onDialogButtonClick(Boolean isPositive) {
-
-		}
+		public void onDialogButtonClick(Boolean isPositive, Object viewTag) {
+		   Log.e("CLICK ON : ", viewTag.toString());
+		   switch (viewTag.toString()) {
+			case DefaultConstants.POSITIVE_BUTTON_TAG:
+				//TODO write your code here
+				Log.e("CLICK ON : ", "1");
+				break;
+			case DefaultConstants.NEGATIVE_BUTTON_TAG:
+				//TODO write your code here
+				Log.e("CLICK ON : ", "2");
+				break;
+			case DefaultConstants.BUTTON_3RD_TAG:
+				//TODO write your code here
+				Log.e("CLICK ON : ", "3");
+				break;
+		   }
+	       }
 	}).build();
 dialog.show("Dialog");
 ```
@@ -52,6 +66,10 @@ dialog = new CommonMessageDialog.Builder(this)
    .showNegativeButton(true)
    .negativeButtonText("No")
    .positiveButtonText("YES")
+   .show3rdButton(true)
+   .m3rdButtonText("Cancel")
+   .m3rdButtonTextColor(R.color.red)
+   .m3rdButtonDrawable(getResources().getDrawable(R.drawable.default_button_selector))
    .iconMaxHeight(32)
    .iconMaxWidth(32)
    .iconMinHeight(18)
@@ -71,8 +89,22 @@ dialog = new CommonMessageDialog.Builder(this)
    .showButtonDivider(true)
    .callBack(new CommonDialogListener() {
        @Override
-       public void onDialogButtonClick(Boolean isPositive) {
-
+       public void onDialogButtonClick(Boolean isPositive, Object viewTag) {
+           Log.e("CLICK ON : ", viewTag.toString());
+           switch (viewTag.toString()) {
+           	case DefaultConstants.POSITIVE_BUTTON_TAG:
+                	//TODO write your code here
+                        Log.e("CLICK ON : ", "1");
+                	break;
+                case DefaultConstants.NEGATIVE_BUTTON_TAG:
+                        //TODO write your code here
+                        Log.e("CLICK ON : ", "2");
+                        break;
+                case DefaultConstants.BUTTON_3RD_TAG:
+                	//TODO write your code here
+                        Log.e("CLICK ON : ", "3");
+                        break;
+           }
        }
    }).build();
 
