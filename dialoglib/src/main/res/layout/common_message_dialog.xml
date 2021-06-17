@@ -92,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="OK"
+                android:text="Yes"
                 android:textAllCaps="true"
                 android:textColor="@android:color/black" />
 
@@ -104,6 +104,22 @@
 
             <Button
                 android:id="@+id/btn_negative"
+                style="@style/dialogButtonDefault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="No"
+                android:textAllCaps="true"
+                android:textColor="@android:color/black" />
+
+            <View
+                android:id="@+id/view_verticalDividerFor3rd"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider" />
+
+            <Button
+                android:id="@+id/btn_3rd"
                 style="@style/dialogButtonDefault"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
